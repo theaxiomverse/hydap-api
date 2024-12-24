@@ -1,0 +1,14 @@
+go 1.23.4
+
+use .
+
+use pkg/modules
+
+use pkg/modules/base
+use pkg/modules/core
+use pkg/modules/api
+use pkg/crypto
+
+use pkg/keymanagement
+
+use pkg/encryption

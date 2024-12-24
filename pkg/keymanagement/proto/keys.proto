@@ -1,0 +1,25 @@
+// axiomverse.proto
+syntax = "proto3";
+
+package pb;
+option go_package = "github.com/theaxiomverse/hydap/protobuf;pb";
+
+
+enum Algorithm {
+  NONE = 0;
+  KYBER512 = 1;
+  KYBER768 = 2;
+  KYBER1024=3;
+  FALCON512=4;
+  DILITHIUM2=5;
+  DILITHIUM3=6;
+  EDWARDS25519=7;
+  ECDSA=8;
+  RSA=9;
+  EDDSA=10;
+}
+
+message Key {
+  Algorithm algorithm = 1;
+  string keys = 2;
+}
