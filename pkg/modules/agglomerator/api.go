@@ -3,7 +3,7 @@ package agglomerator
 import (
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
-	module_api "github.com/theaxiomverse/hydap-api/pkg/modules/api"
+
 	"github.com/theaxiomverse/hydap-api/pkg/modules/base"
 	"net/http"
 )

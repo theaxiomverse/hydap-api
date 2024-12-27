@@ -8,7 +8,6 @@ import (
 	"github.com/theaxiomverse/hydap-api/pkg/modules/base"
 	"github.com/theaxiomverse/hydap-api/pkg/modules/core"
 	"github.com/theaxiomverse/hydap-api/pkg/vectors"
-	"sync"
 )
 
 type ModuleConfig struct {
