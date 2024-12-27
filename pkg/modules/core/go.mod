@@ -1,4 +1,4 @@
-module github.com/theaxiomverse/hydap/pkg/modules/core
+module github.com/theaxiomverse/hydap-api/pkg/modules/core
 
 go 1.23
 
