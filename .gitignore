@@ -3,3 +3,4 @@
 ./.git
 ./*.db
 config.db
+*.db
