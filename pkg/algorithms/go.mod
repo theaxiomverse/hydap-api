@@ -1,3 +1,3 @@
-module github.com/theaxiomverse/hydap/pkg/algorithms
+module github.com/theaxiomverse/hydap-api/pkg/algorithms
 
 go 1.23

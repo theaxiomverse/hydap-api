@@ -58,7 +58,7 @@ func main() {
 	// Setup router
 	r := chi.NewRouter()
 	r.Mount("/api/modules", moduleAPI.Router())
-	r.Mount("/api/agglomerator", api.NewModuleAPI((module.(*agglomerator.AgglomeratorModule)).Routes())
+	//	r.Mount("/api/agglomerator", api.NewModuleAPI((module.(*agglomerator.AgglomeratorModule)).Routes())
 
 	// Setup hot reloading
 	hotReloader, err := core.NewHotReloader(registry, log.New(os.Stdout, "", log.LstdFlags))

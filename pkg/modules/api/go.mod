@@ -1,4 +1,4 @@
-module github.com/theaxiomverse/hydap/pkg/modules/api
+module github.com/theaxiomverse/hyda-api/pkg/modules/api
 
 go 1.23
 
