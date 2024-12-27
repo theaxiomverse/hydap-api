@@ -1,4 +1,4 @@
-module hydap/pkg/crypto
+module github.com/theaxiomverse/hydap/pkg/crypto
 
 go 1.23
 

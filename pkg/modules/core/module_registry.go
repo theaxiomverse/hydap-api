@@ -3,10 +3,9 @@ package core
 import (
 	"encoding/json"
 	"fmt"
-	"hydap/pkg/modules/base"
-	"sync"
+"github.com/theaxiomverse/hydap-api/pkg/modules/base"
+"sync"
 )
-
 type ModuleRegistry struct {
 	modules map[string]base.Module
 	deps    map[string][]string

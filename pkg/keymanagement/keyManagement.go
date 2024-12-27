@@ -4,10 +4,9 @@ import (
 	"encoding/base64"
 	"errors"
 	"github.com/open-quantum-safe/liboqs-go/oqs"
-	"hydap/pkg/crypto"
-	"hydap/pkg/keymanagement/pb"
+github.com/theaxiomverse/hydap-api/pkg/crypto"
+github.com/theaxiomverse/hydap-api/pkg/keymanagement/pb"
 )
-
 type KeyManagement interface {
 	GetPublicKey() string
 	LoadSecretKey(string) error

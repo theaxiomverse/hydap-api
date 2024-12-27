@@ -5,15 +5,15 @@ import (
 	"errors"
 	"fmt"
 	"google.golang.org/protobuf/proto"
-	"hydap/pkg/keymanagement"
-	"hydap/pkg/keymanagement/pb"
-	"math/big"
+github.com/theaxiomverse/hydap-api/pkg/keymanagement"
+github.com/theaxiomverse/hydap-api/pkg/keymanagement/pb"
+"math/big"
 
-	"github.com/open-quantum-safe/liboqs-go/oqs"
-	"go.dedis.ch/kyber/v4"
-	"go.dedis.ch/kyber/v4/group/edwards25519"
-	"go.dedis.ch/kyber/v4/share"
-	"go.dedis.ch/kyber/v4/util/random"
+"github.com/open-quantum-safe/liboqs-go/oqs"
+"go.dedis.ch/kyber/v4"
+"go.dedis.ch/kyber/v4/group/edwards25519"
+"go.dedis.ch/kyber/v4/share"
+"go.dedis.ch/kyber/v4/util/random"
 )
 
 const (

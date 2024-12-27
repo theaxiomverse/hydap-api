@@ -12,3 +12,4 @@ use pkg/crypto
 use pkg/keymanagement
 
 use pkg/encryption
+use cmd

@@ -4,11 +4,10 @@ package api
 import (
 	"encoding/json"
 	"github.com/go-chi/chi/v5"
-	"hydap/pkg/modules/base"
-	"hydap/pkg/modules/core"
-	"net/http"
+"github.com/theaxiomverse/hydap-api/base"
+"github.com/theaxiomverse/hydap-api/pkg/modules/core"
+"net/http"
 )
-
 type ModuleAPI struct {
 	registry *core.ModuleRegistry
 	config   *core.ConfigManager

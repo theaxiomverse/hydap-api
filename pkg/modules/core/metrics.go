@@ -56,3 +56,9 @@ func (me *MetricsExporter) RegisterModule(name string) {
 	me.registry.MustRegister(mm.health, mm.memory, mm.uptime, mm.requests)
 	me.modules[name] = mm
 }
+
+func (me *MetricsExporter) Modules() map[string]*moduleMetrics {
+	me.mu.RLock()
+	defer me.mu.RUnlock()
+	return me.modules
+}

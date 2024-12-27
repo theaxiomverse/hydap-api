@@ -3,7 +3,7 @@ package base
 import (
 	"encoding/json"
 	"fmt"
-	"hydap/pkg/crypto"
+github.com/theaxiomverse/hydap-api/pkg/crypto"
 )
 
 // pkg/modules/base/module.go
@@ -136,4 +136,8 @@ func NewModuleMetadata(name, version, description, author, license string) Modul
 		Author:      author,
 		License:     license,
 	}
+}
+
+func (b *BaseModule) SetState(state ModuleState) {
+	b.state = state
 }
