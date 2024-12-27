@@ -7,10 +7,6 @@ import (
 	"net/http"
 )
 
-type AgglomeratorModule struct {
-	base.Module
-}
-
 type API struct {
 	module *AgglomeratorModule
 }
@@ -104,7 +100,7 @@ func (api *API) RegisterChain(w http.ResponseWriter, r *http.Request) {
 
 func (api *API) GetStatus(w http.ResponseWriter, r *http.Request) {
 	status := map[string]interface{}{
-		"state":   api.module.State().String(),
+		"state":   api.module.GetState().String(),
 		"health":  api.module.HealthCheck() == nil,
 		"version": api.module.Version(),
 		"config":  api.module.config,
@@ -113,7 +109,7 @@ func (api *API) GetStatus(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *API) PauseModule(w http.ResponseWriter, r *http.Request) {
-	if api.module.State() != base.StateRunning {
+	if api.module.GetState() != base.StateRunning {
 		http.Error(w, "module not running", http.StatusBadRequest)
 		return
 	}
@@ -123,7 +119,7 @@ func (api *API) PauseModule(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api *API) ResumeModule(w http.ResponseWriter, r *http.Request) {
-	if api.module.State() != base.StatePaused {
+	if api.module.GetState() != base.StatePaused {
 		http.Error(w, "module not paused", http.StatusBadRequest)
 		return
 	}

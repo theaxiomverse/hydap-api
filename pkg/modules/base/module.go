@@ -14,7 +14,7 @@ type Module interface {
 	Terminate() error
 	Signature() string
 	HealthCheck() error
-	State() ModuleState
+	GetState() ModuleState
 	Version() string
 }
 type ModuleConfig struct {
@@ -47,13 +47,13 @@ type ModuleMetadata struct {
 // BaseModule provides common functionality
 type BaseModule struct {
 	metadata ModuleMetadata
-	state    ModuleState
+	State    ModuleState
 	hasher   *crypto.Blake3Hasher
 	config   json.RawMessage
 }
 
-func (b *BaseModule) State() ModuleState {
-	return b.state
+func (b *BaseModule) GetState() ModuleState {
+	return b.State
 }
 
 func (b *BaseModule) Version() string {
@@ -64,13 +64,13 @@ func (b *BaseModule) Name() string {
 }
 
 func (b *BaseModule) Initialize() error {
-	b.state = StateInitialized
+	b.State = StateInitialized
 	b.hasher = crypto.NewBlake3()
 	return nil
 }
 
 func (b *BaseModule) Terminate() error {
-	b.state = StateUninitialized
+	b.State = StateUninitialized
 	return nil
 }
 
@@ -82,10 +82,10 @@ func (b *BaseModule) Signature() string {
 }
 
 func (b *BaseModule) HealthCheck() error {
-	if b.state == StateError {
+	if b.State == StateError {
 		return fmt.Errorf("module %s is in error state", b.Name())
 	}
-	if b.state == StateUninitialized {
+	if b.State == StateUninitialized {
 		return fmt.Errorf("module %s is not initialized", b.Name())
 	}
 	return nil
@@ -139,5 +139,5 @@ func NewModuleMetadata(name, version, description, author, license string) Modul
 }
 
 func (b *BaseModule) SetState(state ModuleState) {
-	b.state = state
+	b.State = state
 }

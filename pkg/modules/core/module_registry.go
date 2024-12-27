@@ -3,9 +3,10 @@ package core
 import (
 	"encoding/json"
 	"fmt"
-"github.com/theaxiomverse/hydap-api/pkg/modules/base"
-"sync"
+	"github.com/theaxiomverse/hydap-api/pkg/modules/base"
+	"sync"
 )
+
 type ModuleRegistry struct {
 	modules map[string]base.Module
 	deps    map[string][]string
@@ -120,7 +121,7 @@ func (r *ModuleRegistry) List() []ModuleInfo {
 	for name, mod := range r.modules {
 		modules = append(modules, ModuleInfo{
 			Name:    name,
-			Status:  mod.State(),
+			Status:  mod.GetState(),
 			Deps:    r.deps[name],
 			Version: mod.Version(),
 		})
