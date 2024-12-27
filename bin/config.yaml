@@ -1,0 +1,85 @@
+# Agglomerator Module Configuration
+modules:
+  blockchain_agglomerator:
+    # Basic module configuration
+    nodeID: "node1"
+    version: "1.0.0"
+    vectorDims: 50
+    simThreshold: 0.7
+
+    # Logging configuration
+    logPath: "./logs/agglomerator.log"
+    logLevel: "info"
+
+    # Network configuration
+    p2p:
+      address: "localhost"
+      port: 8000
+      discoveryInterval: "5m"
+      maxPeers: 50
+
+    # Enabled blockchain networks
+    enabledChains:
+      - id: "bitcoin-main"
+        protocol: "btc"
+        endpoint: "http://localhost:8332"
+
+      - id: "ethereum-main"
+        protocol: "eth"
+        endpoint: "http://localhost:8545"
+
+      - id: "solana-main"
+        protocol: "sol"
+        endpoint: "http://localhost:8899"
+
+      - id: "polkadot-main"
+        protocol: "dot"
+        endpoint: "http://localhost:9933"
+
+    # Protocol configurations
+    protocols:
+      btc:
+        blockTime: 600        # 10 minutes
+        confirmations: 6      # Number of confirmations needed
+        costWeight: 1.0       # Base reference cost
+
+      eth:
+        blockTime: 12        # 12 seconds
+        confirmations: 12    # ~3 minutes worth
+        costWeight: 0.8
+
+      sol:
+        blockTime: 0.4       # 400ms
+        confirmations: 1
+        costWeight: 0.1
+
+      dot:
+        blockTime: 6         # 6 seconds
+        confirmations: 2
+        costWeight: 0.5
+
+    # Vector space configuration
+    vectorSpace:
+      dimensions: 50
+      similarityThreshold: 0.7
+      updateInterval: "1m"
+
+    # Transaction configuration
+    transactions:
+      maxBatchSize: 100
+      processingTimeout: "30s"
+      retryAttempts: 3
+      retryInterval: "5s"
+
+    # Storage configuration
+    storage:
+      path: "./data"
+      maxSize: "10GB"
+      backupInterval: "24h"
+
+    # Metrics configuration
+    metrics:
+      enabled: true
+      endpoint: "/metrics"
+      interval: "10s"
+      retention: "7d"

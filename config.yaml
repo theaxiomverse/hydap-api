@@ -1,0 +1,60 @@
+modules:
+  blockchain_agglomerator:
+    nodeID: "node1"
+    vectorDims: 50
+    simThreshold: 0.7
+    logPath: "./logs/agglomerator.log"
+
+    enabledChains:
+      - id: "bitcoin-main"
+        protocol: "btc"
+        endpoint: "http://localhost:8332"
+      - id: "ethereum-main"
+        protocol: "eth"
+        endpoint: "http://localhost:8545"
+      - id: "solana-main"
+        protocol: "sol"
+        endpoint: "http://localhost:8899"
+      - id: "polkadot-main"
+        protocol: "dot"
+        endpoint: "http://localhost:9933"
+
+    protocols:
+      btc:
+        blockTime: 600
+        confirmations: 6
+        costWeight: 1.0
+      eth:
+        blockTime: 12
+        confirmations: 12
+        costWeight: 0.8
+      sol:
+        blockTime: 0.4
+        confirmations: 1
+        costWeight: 0.1
+      dot:
+        blockTime: 6
+        confirmations: 2
+        costWeight: 0.5
+
+    vectorSpace:
+      dimensions: 50
+      similarityThreshold: 0.7
+      updateInterval: "1m"
+
+    transactions:
+      maxBatchSize: 100
+      processingTimeout: "30s"
+      retryAttempts: 3
+      retryInterval: "5s"
+
+    storage:
+      path: "./data"
+      maxSize: "10GB"
+      backupInterval: "24h"
+
+    metrics:
+      enabled: true
+      endpoint: "/metrics"
+      interval: "10s"
+      retention: "7d"

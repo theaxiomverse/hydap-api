@@ -11,12 +11,82 @@ import (
 	"github.com/theaxiomverse/hydap-api/pkg/vectors"
 )
 
+// ChainConfig represents the configuration for a single chain
+type ChainConfig struct {
+	ID       string `json:"id"`
+	Protocol string `json:"protocol"`
+	Endpoint string `json:"endpoint"`
+}
+
+// ModuleConfig represents the module's configuration structure
 type ModuleConfig struct {
-	NodeID        string   `json:"nodeID"`
-	VectorDims    int      `json:"vectorDims"`
-	SimThreshold  float64  `json:"simThreshold"`
-	EnabledChains []string `json:"enabledChains"`
-	LogPath       string   `json:"logPath"`
+	NodeID        string        `json:"nodeID"`
+	VectorDims    int           `json:"vectorDims"`
+	SimThreshold  float64       `json:"simThreshold"`
+	EnabledChains []ChainConfig `json:"enabledChains"`
+	LogPath       string        `json:"logPath"`
+
+	// P2P configuration
+	P2P struct {
+		Address           string `json:"address"`
+		Port              int    `json:"port"`
+		DiscoveryInterval string `json:"discoveryInterval"`
+		MaxPeers          int    `json:"maxPeers"`
+	} `json:"p2p"`
+
+	// Protocol configurations
+	Protocols struct {
+		BTC struct {
+			BlockTime     float64 `json:"blockTime"`
+			Confirmations int     `json:"confirmations"`
+			CostWeight    float64 `json:"costWeight"`
+		} `json:"btc"`
+		ETH struct {
+			BlockTime     float64 `json:"blockTime"`
+			Confirmations int     `json:"confirmations"`
+			CostWeight    float64 `json:"costWeight"`
+		} `json:"eth"`
+		SOL struct {
+			BlockTime     float64 `json:"blockTime"`
+			Confirmations int     `json:"confirmations"`
+			CostWeight    float64 `json:"costWeight"`
+		} `json:"sol"`
+		DOT struct {
+			BlockTime     float64 `json:"blockTime"`
+			Confirmations int     `json:"confirmations"`
+			CostWeight    float64 `json:"costWeight"`
+		} `json:"dot"`
+	} `json:"protocols"`
+
+	// Vector space configuration
+	VectorSpace struct {
+		Dimensions          int     `json:"dimensions"`
+		SimilarityThreshold float64 `json:"similarityThreshold"`
+		UpdateInterval      string  `json:"updateInterval"`
+	} `json:"vectorSpace"`
+
+	// Transaction configuration
+	Transactions struct {
+		MaxBatchSize      int    `json:"maxBatchSize"`
+		ProcessingTimeout string `json:"processingTimeout"`
+		RetryAttempts     int    `json:"retryAttempts"`
+		RetryInterval     string `json:"retryInterval"`
+	} `json:"transactions"`
+
+	// Storage configuration
+	Storage struct {
+		Path           string `json:"path"`
+		MaxSize        string `json:"maxSize"`
+		BackupInterval string `json:"backupInterval"`
+	} `json:"storage"`
+
+	// Metrics configuration
+	Metrics struct {
+		Enabled   bool   `json:"enabled"`
+		Endpoint  string `json:"endpoint"`
+		Interval  string `json:"interval"`
+		Retention string `json:"retention"`
+	} `json:"metrics"`
 }
 
 // Initialize implements Module interface
@@ -53,10 +123,10 @@ func (m *AgglomeratorModule) Initialize() error {
 	// Initialize chains
 	for _, chainID := range moduleConfig.EnabledChains {
 		chain := &Chain{
-			ID:       chainID,
-			Protocol: determineProtocol(chainID),
+			ID:       chainID.ID,
+			Protocol: determineProtocol(chainID.ID),
 			StateVector: vectors.InfiniteVector{
-				Generator: getDefaultGenerator(chainID),
+				Generator: getDefaultGenerator(chainID.ID),
 			},
 		}
 		if err := m.agglomerator.RegisterChain(chain); err != nil {

@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"gopkg.in/yaml.v3"
 	"math"
 	"net/http"
 	"os"
@@ -83,10 +84,36 @@ func init() {
 }
 
 func startService(configFile string) error {
+	// Read config file
+	configData, err := os.ReadFile(configFile)
+	if err != nil {
+		return fmt.Errorf("failed to read config file: %w", err)
+	}
+
+	// Parse YAML config
+	var config struct {
+		Modules struct {
+			BlockchainAgglomerator map[string]interface{} `yaml:"blockchain_agglomerator"`
+		} `yaml:"modules"`
+	}
+	if err := yaml.Unmarshal(configData, &config); err != nil {
+		return fmt.Errorf("failed to parse config: %w", err)
+	}
+
 	// Initialize core components
-	configManager, err := core.NewConfigManager("./config.db")
+	configManager, err := core.NewConfigManager("./data/agglomerator.db")
 	if err != nil {
 		return fmt.Errorf("failed to initialize config manager: %w", err)
+	}
+
+	// Store initial configuration
+	moduleConfig, err := json.Marshal(config.Modules.BlockchainAgglomerator)
+	if err != nil {
+		return fmt.Errorf("failed to marshal module config: %w", err)
+	}
+
+	if err := configManager.SetConfig("blockchain_agglomerator", moduleConfig); err != nil {
+		return fmt.Errorf("failed to store initial config: %w", err)
 	}
 
 	metrics := core.NewMetricsExporter()
