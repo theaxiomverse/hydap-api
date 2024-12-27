@@ -4,4 +4,4 @@
 ./*.db
 config.db
 *.db
-.DSUtils
+.DS_Store
