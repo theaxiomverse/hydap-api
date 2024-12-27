@@ -5,3 +5,4 @@
 config.db
 *.db
 .DS_Store
+./*/**.DS_Store
