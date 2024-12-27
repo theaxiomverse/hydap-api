@@ -3,7 +3,7 @@ package base
 import (
 	"encoding/json"
 	"fmt"
-github.com/theaxiomverse/hydap-api/pkg/crypto"
+	"github.com/theaxiomverse/hydap-api/pkg/crypto"
 )
 
 // pkg/modules/base/module.go
