@@ -1,4 +1,4 @@
-package cmd
+package main
 
 import (
 	"bytes"
@@ -84,7 +84,7 @@ func init() {
 
 func startService(configFile string) error {
 	// Initialize core components
-	configManager, err := core.NewConfigManager("./data/agglomerator.db")
+	configManager, err := core.NewConfigManager("./config.db")
 	if err != nil {
 		return fmt.Errorf("failed to initialize config manager: %w", err)
 	}
@@ -110,8 +110,8 @@ func startService(configFile string) error {
 	router := chi.NewRouter()
 	router.Mount("/api/agglomerator", apiHandler.Routes())
 
-	fmt.Println("Starting agglomerator service on :8080")
-	return http.ListenAndServe(":8080", router)
+	fmt.Println("Starting agglomerator service on :8088")
+	return http.ListenAndServe(":8088", router)
 }
 
 func addChain(chainID, endpoint, protocol string) error {
@@ -127,7 +127,7 @@ func addChain(chainID, endpoint, protocol string) error {
 	}
 
 	// Make API request to register chain
-	url := "http://localhost:8080/api/agglomerator/chains"
+	url := "http://localhost:8088/api/agglomerator/chains"
 	body, err := json.Marshal(chain)
 	if err != nil {
 		return err
@@ -149,7 +149,7 @@ func addChain(chainID, endpoint, protocol string) error {
 
 func listChains() error {
 	// Make API request to list chains
-	resp, err := http.Get("http://localhost:8080/api/agglomerator/chains")
+	resp, err := http.Get("http://localhost:8088/api/agglomerator/chains")
 	if err != nil {
 		return err
 	}
@@ -185,7 +185,7 @@ func createTransaction(fromChain, toChain string, data []byte) error {
 	}
 
 	// Make API request to create transaction
-	url := "http://localhost:8080/api/agglomerator/transaction"
+	url := "http://localhost:8088/api/agglomerator/transaction"
 	body, err := json.Marshal(tx)
 	if err != nil {
 		return err
