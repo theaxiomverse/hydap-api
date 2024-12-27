@@ -15,6 +15,17 @@ type ChainAccelerator struct {
 	mu          sync.RWMutex
 }
 
+func NewChain(id, endpoint, protocol string) *Chain {
+	return &Chain{
+		ID:                  id,
+		Endpoint:            endpoint,
+		Protocol:            protocol,
+		TransactionPool:     vectors.NewInfiniteVectorIndex(),
+		streamingCompressor: NewAdaptiveCompressor(CompressorConfig{}), // Initialize with batch size 100
+		compressedBlocks:    make([]*CompressedBlock, 0),
+	}
+}
+
 // AcceleratedChain represents a compressed and accelerated chain
 type AcceleratedChain struct {
 	OriginalChain    *Chain

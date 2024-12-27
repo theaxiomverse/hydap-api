@@ -27,12 +27,15 @@ type AgglomeratorConfig struct {
 }
 
 // Chain represents a blockchain network with vector state
+// In pkg/modules/agglomerator/types.go
 type Chain struct {
-	ID              string
-	Endpoint        string
-	Protocol        string
-	StateVector     vectors.InfiniteVector
-	TransactionPool *vectors.InfiniteVectorIndex
+	ID                  string
+	Endpoint            string
+	Protocol            string
+	StateVector         vectors.InfiniteVector
+	TransactionPool     *vectors.InfiniteVectorIndex
+	streamingCompressor *AdaptiveCompressor // Add this field
+	compressedBlocks    []*CompressedBlock  // Add this field
 }
 
 // Transaction represents a cross-chain transaction
